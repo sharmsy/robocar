@@ -16,7 +16,7 @@
 //  LOW   LOW   N/A   N/A   N/A   N/A   Car is stoped
 
 
-//define L298n module IO Pin
+//define IO pins for motor controller module
 #define ENA 5
 #define ENB 6
 #define IN1 7
