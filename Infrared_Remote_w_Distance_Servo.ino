@@ -147,7 +147,6 @@ void spinRight(){
 void stop(){
    digitalWrite(ENA, LOW);
    digitalWrite(ENB, LOW);
-   Serial.println("Stop!");
 } 
 
 void dance(){
