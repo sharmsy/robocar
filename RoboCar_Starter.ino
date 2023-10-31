@@ -27,7 +27,7 @@
 void forward(){ 
   digitalWrite(ENA,HIGH); //enable L298n A channel
   digitalWrite(ENB,HIGH); //enable L298n B channel
-  digitalWrite(IN1,HIGH); //set IN1 hight level
+  digitalWrite(IN1,HIGH); //set IN1 high level
   digitalWrite(IN2,LOW);  //set IN2 low level
   digitalWrite(IN3,LOW);  //set IN3 low level
   digitalWrite(IN4,HIGH); //set IN4 hight level
