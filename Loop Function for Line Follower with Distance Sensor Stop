@@ -1,0 +1,29 @@
+void loop() {
+
+   
+    dist = Distance_test();
+    if(dist<=threshold)
+    {
+      stop();
+      Serial.print("Distance too close: ");
+      Serial.println(dist);
+    }
+    else
+    {
+      if(LT_M){
+        forward();
+      }
+      else if(LT_R) { 
+        turnRight();
+        while(LT_R);                             
+      }   
+      else if(LT_L) {
+        turnLeft();
+        while(LT_L);  
+      }
+      else if (!LT_M && !LT_R && !LT_L){
+        spinLeft();
+        while(!LT_M && !LT_R && !LT_L && Distance_test() < threshold);
+      }
+    }
+}//end of loop
