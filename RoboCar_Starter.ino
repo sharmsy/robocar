@@ -1,65 +1,89 @@
 //www.elegoo.com
 
 //Edited by Mr. Harms
-//04.18.2023
+//02/18/2025
 //This starter code will help you get your RoboCar moving
 
 
 //    The direction of the car's movement
 //  ENA   ENB   IN1   IN2   IN3   IN4   Description  
-//  HIGH  HIGH  HIGH  LOW   LOW   HIGH  Car is runing forward
-//  HIGH  HIGH  LOW   HIGH  HIGH  LOW   Car is runing back
+//  HIGH  HIGH  HIGH  LOW   LOW   HIGH  Car is running forward
+//  HIGH  HIGH  LOW   HIGH  HIGH  LOW   Car is running back
 //  HIGH  HIGH  LOW   HIGH  LOW   HIGH  Car is turning left
 //  HIGH  HIGH  HIGH  LOW   HIGH  LOW   Car is turning right
-//  HIGH  HIGH  LOW   LOW   LOW   LOW   Car is stoped
-//  HIGH  HIGH  HIGH  HIGH  HIGH  HIGH  Car is stoped
-//  LOW   LOW   N/A   N/A   N/A   N/A   Car is stoped
+//  HIGH  HIGH  LOW   LOW   LOW   LOW   Car is stopped
+//  HIGH  HIGH  HIGH  HIGH  HIGH  HIGH  Car is stopped
+//  LOW   LOW   N/A   N/A   N/A   N/A   Car is stopped
 
 
-//define IO pins for motor controller module
-#define ENA 5
-#define ENB 6
-#define IN1 7
-#define IN2 8
-#define IN3 9
-#define IN4 11
+// Define IO pins for motor controller module
+#define ENA 5  // Enable pin for motor A
+#define ENB 6  // Enable pin for motor B
+#define IN1 7  // Control pin 1 for motor A
+#define IN2 8  // Control pin 2 for motor A
+#define IN3 9  // Control pin 1 for motor B
+#define IN4 11 // Control pin 2 for motor B
+#define echoPin A4 // attach pin A4 Arduino to pin Echo of HC-SR04
+#define trigPin A5 //attach pin A5 Arduino to pin Trig of HC-SR04
+long duration; // variable for the duration of sound wave travel
 
 void forward(){ 
-  digitalWrite(ENA,HIGH); //enable L298n A channel
-  digitalWrite(ENB,HIGH); //enable L298n B channel
-  digitalWrite(IN1,HIGH); //set IN1 high level
-  digitalWrite(IN2,LOW);  //set IN2 low level
-  digitalWrite(IN3,LOW);  //set IN3 low level
-  digitalWrite(IN4,HIGH); //set IN4 hight level
-  Serial.println("Forward");//send message to serial monitor
+  digitalWrite(ENA,HIGH); // Enable motor A
+  digitalWrite(ENB,HIGH); // Enable motor B
+  digitalWrite(IN1,HIGH); // Set motor A to move forward
+  digitalWrite(IN2,LOW);  // Set motor A to move forward
+  digitalWrite(IN3,LOW);  // Set motor B to move forward
+  digitalWrite(IN4,HIGH); // Set motor B to move forward
+  Serial.println("Forward"); // Print movement direction to serial monitor
 }
 
 void back(){
-  digitalWrite(ENA,HIGH);
-  digitalWrite(ENB,HIGH);
-  digitalWrite(IN1,LOW);
-  digitalWrite(IN2,HIGH);
-  digitalWrite(IN3,HIGH);
-  digitalWrite(IN4,LOW);
-  Serial.println("Back");
+  digitalWrite(ENA,HIGH); // Enable motor A
+  digitalWrite(ENB,HIGH); // Enable motor B
+  digitalWrite(IN1,LOW);  // Set motor A to move backward
+  digitalWrite(IN2,HIGH); // Set motor A to move backward
+  digitalWrite(IN3,HIGH); // Set motor B to move backward
+  digitalWrite(IN4,LOW);  // Set motor B to move backward
+  Serial.println("Back"); // Print movement direction to serial monitor
 }
 
-//before execute loop() function, 
-//setup() function will execute first and only execute once
+// Function to measure distance using an ultrasonic sensor
+int getDistance()
+{
+  int dist; // Variable to store calculated distance
+  digitalWrite(trigPin, LOW); // Ensure trigger pin is low before starting
+  delayMicroseconds(2); // Short delay to stabilize sensor
+  
+  // Sets the trigPin HIGH (ACTIVE) for 10 microseconds to send out a pulse
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calculating the distance in centimeters
+  dist = duration * 0.034 / 2; // Speed of sound (0.034 cm/µs) divided by 2 (round trip)
+  
+  return dist; // Return the measured distance
+}
+
+// Before executing loop() function, 
+// setup() function will execute first and only execute once
 void setup() {
-  Serial.begin(9600);//open serial and set the baudrate
-  pinMode(IN1,OUTPUT);//before useing io pin, pin mode must be set first 
+  Serial.begin(9600); // Open serial communication and set the baud rate
+  pinMode(IN1,OUTPUT); // Set motor control pins as output
   pinMode(IN2,OUTPUT);
   pinMode(IN3,OUTPUT);
   pinMode(IN4,OUTPUT);
-  pinMode(ENA,OUTPUT);
+  pinMode(ENA,OUTPUT); // Set motor enable pins as output
   pinMode(ENB,OUTPUT);
 }
 
-//Repeat execution
+// Repeat execution
 void loop() {
-  forward();  //go forward
-  delay(1000);//delay 1000 ms
-  back();     //go back
-  delay(1000);
+  forward();  // Move forward
+  delay(1000); // Wait for 1 second
+  back();     // Move backward
+  delay(1000); // Wait for 1 second
 }
