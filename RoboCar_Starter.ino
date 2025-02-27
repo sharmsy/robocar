@@ -1,7 +1,7 @@
 //www.elegoo.com
 
 //Edited by Mr. Harms
-//02/18/2025
+//02/27/2025
 //This starter code will help you get your RoboCar moving
 
 
@@ -17,14 +17,14 @@
 
 
 // Define IO pins for motor controller module
-#define ENA 5  // Enable pin for motor A
-#define ENB 6  // Enable pin for motor B
-#define IN1 7  // Control pin 1 for motor A
-#define IN2 8  // Control pin 2 for motor A
-#define IN3 9  // Control pin 1 for motor B
-#define IN4 11 // Control pin 2 for motor B
-#define echoPin A4 // attach pin A4 Arduino to pin Echo of HC-SR04
-#define trigPin A5 //attach pin A5 Arduino to pin Trig of HC-SR04
+const int ENA = 5;  // Enable pin for motor A
+const int ENB = 6;  // Enable pin for motor B
+const int IN1 = 7;  // Control pin 1 for motor A
+const int IN2 = 8;  // Control pin 2 for motor A
+const int IN3 = 9;  // Control pin 1 for motor B
+const int IN4 = 11; // Control pin 2 for motor B
+const int echoPin = A4; // attach pin A4 Arduino to pin Echo of HC-SR04
+const int trigPin = A5; //attach pin A5 Arduino to pin Trig of HC-SR04
 long duration; // variable for the duration of sound wave travel
 
 void forward(){ 
@@ -78,6 +78,8 @@ void setup() {
   pinMode(IN4,OUTPUT);
   pinMode(ENA,OUTPUT); // Set motor enable pins as output
   pinMode(ENB,OUTPUT);
+  pinMode(trigPin, OUTPUT); // Sets pin 3 as an OUTPUT
+  pinMode(echoPin, INPUT); // Sets pin 2 as an INPUT
 }
 
 // Repeat execution
